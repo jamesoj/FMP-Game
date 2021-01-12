@@ -95,7 +95,7 @@ public class ThirdPersonCharacterController : MonoBehaviour
         }
     }
 
-    void PlayerMovement()
+    private void PlayerMovement()
     {
         float hor = Input.GetAxis("Horizontal");
         float ver = Input.GetAxis("Vertical");

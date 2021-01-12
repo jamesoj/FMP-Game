@@ -9,9 +9,11 @@ public class Player : MonoBehaviour
 
     public int currentHealth;
     private int maxHealth = 100;
-    bool portal = false;
     private Animator Anim;
     public HP_Bar hp_Bar;
+    public Heath_Pickup heath_Pickup;
+    public int count = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,28 +40,26 @@ public class Player : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    /*private void OnTriggerPickUp(Collider col)
+    private void OnTriggerEnter(Collider other)
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            this.portal = true;
-            Debug.Log("pressed");
-        }
-    }*/
 
-    private void OnTriggerEnter(Collider col)
-    {
-        if (col.tag == "Item")
-        {
-            this.portal = true;
-            Debug.Log("pressed");
-            Destroy(col.gameObject);
-        }
-
-        if (col.tag == "Portal" && this.portal == true)
+        if (other.tag == "Portal" && this.count == 2)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 
+    public void Heal()
+    {
+
+        if (currentHealth < 75)
+        {
+            currentHealth += 25;
+        }
+        else
+        {
+            currentHealth = maxHealth;
+        }
+        hp_Bar.Sethealth(currentHealth);
+    }
 }
